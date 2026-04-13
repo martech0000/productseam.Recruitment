@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Seam — 先行モニター募集（3名限定）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;500;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #faf7f2;
+    --bg-warm:   #f3ede3;
+    --bg-ivory:  #fffdf9;
+    --bg-deep:   #1c1710;
+    --text:      #1c1710;
+    --text-sub:  #7a6e60;
+    --text-light:#b0a494;
+    --accent:    #c07b5a;
+    --accent-dk: #9a5c3d;
+    --gold:      #b8975a;
+    --divider:   rgba(192,123,90,0.2);
+    --serif:  'Cormorant Garamond', 'Noto Serif JP', serif;
+    --sans:   'Noto Sans JP', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.9;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Layout ── */
+  .col      { max-width: 640px; margin: 0 auto; padding: 0 28px; }
+  .col-wide { max-width: 820px; margin: 0 auto; padding: 0 28px; }
+
+  /* ── Reveal ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  section { padding: 88px 0; }
+  section.dense { padding: 60px 0; }
+
+  /* ── Typography ── */
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 20px;
+  }
+  .rule { width: 32px; height: 1px; background: var(--accent); margin-bottom: 32px; opacity: 0.6; }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(30px, 6vw, 52px);
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+    color: var(--text);
+  }
+  h2 {
+    font-family: var(--serif);
+    font-size: clamp(22px, 4vw, 36px);
+    font-weight: 700;
+    line-height: 1.45;
+    letter-spacing: 0.02em;
+    color: var(--text);
+  }
+  h3 {
+    font-family: var(--serif);
+    font-size: clamp(17px, 2.5vw, 22px);
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--text);
+  }
+  p { font-size: 15px; line-height: 1.95; margin-bottom: 1.2em; color: var(--text); font-weight: 300; }
+  p:last-child { margin-bottom: 0; }
+  strong { font-weight: 700; }
+  em     { font-style: normal; color: var(--accent); font-weight: 600; }
+
+  /* ── CTA ── */
+  .cta-wrap { text-align: center; margin-top: 48px; }
+  .cta-btn {
+    display: inline-block;
+    padding: 18px 52px;
+    background: var(--accent);
+    color: #fff;
+    font-family: var(--serif);
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+    box-shadow: 0 8px 28px rgba(192,123,90,0.28);
+  }
+  .cta-btn:hover { background: var(--accent-dk); transform: translateY(-2px); box-shadow: 0 14px 36px rgba(154,92,61,0.32); }
+  .cta-note {
+    margin-top: 12px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--text-light);
+  }
+
+  /* ══════════ HERO ══════════ */
+  #hero {
+    background: var(--bg-ivory);
+    padding: 112px 0 96px;
+    border-bottom: 1px solid var(--divider);
+  }
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 6px 16px;
+    margin-bottom: 40px;
+    opacity: 0.85;
+  }
+  #hero h1 { margin-bottom: 32px; }
+  .hero-sub {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--text-sub);
+    line-height: 2;
+    margin-bottom: 44px;
+  }
+  .hero-check {
+    list-style: none;
+    margin-bottom: 52px;
+    border-top: 1px solid var(--divider);
+  }
+  .hero-check li {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text-sub);
+    padding: 12px 0 12px 24px;
+    border-bottom: 1px solid var(--divider);
+    position: relative;
+    line-height: 1.65;
+  }
+  .hero-check li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    opacity: 0.7;
+  }
+
+  /* ══════════ TRACK RECORD ══════════ */
+  #track {
+    background: var(--bg-deep);
+    padding: 88px 0;
+  }
+  #track .eyebrow { color: var(--gold); }
+  #track h2 { color: #fff; }
+  #track p  { color: rgba(255,255,255,0.6); }
+  .track-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: rgba(255,255,255,0.06);
+    margin-top: 48px;
+  }
+  @media (max-width: 560px) { .track-grid { grid-template-columns: 1fr; } }
+  .track-item {
+    background: var(--bg-deep);
+    padding: 32px 28px;
+  }
+  .track-num {
+    font-family: var(--serif);
+    font-size: clamp(36px, 6vw, 52px);
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .track-label {
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.65;
+    letter-spacing: 0.04em;
+  }
+  .track-note {
+    font-size: 11px;
+    color: rgba(255,255,255,0.25);
+    margin-top: 28px;
+    text-align: center;
+    letter-spacing: 0.04em;
+  }
+  .track-profile {
+    margin-top: 48px;
+    padding: 32px 28px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+  }
+  .track-profile-text { flex: 1; }
+  .track-profile-name {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .track-profile-desc {
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.75;
+  }
+
+  /* ══════════ WHAT IS THIS ══════════ */
+  #what { background: var(--bg-warm); }
+  .role-block {
+    margin: 36px 0;
+    padding: 32px 28px;
+    background: var(--bg-ivory);
+    border-left: 2px solid var(--accent);
+  }
+  .role-block p { font-size: 15px; }
+  .role-items { list-style: none; margin-top: 20px; }
+  .role-items li {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text-sub);
+    padding: 9px 0 9px 22px;
+    border-bottom: 1px solid var(--divider);
+    position: relative;
+  }
+  .role-items li::before { content: "✓"; position: absolute; left: 0; color: var(--accent); font-weight: 600; }
+
+  /* ══════════ ROOT CAUSE ══════════ */
+  #why { background: var(--bg-ivory); }
+  .wrong-stack { list-style: none; margin: 28px 0; }
+  .wrong-stack li {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text-sub);
+    padding: 9px 0 9px 22px;
+    border-bottom: 1px solid var(--divider);
+    position: relative;
+  }
+  .wrong-stack li::before { content: "×"; position: absolute; left: 0; color: var(--text-light); }
+  .truth-callout {
+    margin: 40px 0;
+    padding: 36px 28px;
+    background: var(--bg-warm);
+    border-top: 1.5px solid var(--accent);
+    border-bottom: 1.5px solid var(--accent);
+    text-align: center;
+  }
+  .truth-callout p {
+    font-family: var(--serif);
+    font-size: clamp(20px, 3.5vw, 28px);
+    font-weight: 700;
+    color: var(--accent-dk);
+    margin-bottom: 0;
+    line-height: 1.5;
+  }
+
+  /* ══════════ PRODUCT MEANING ══════════ */
+  #meaning { background: var(--bg); }
+  .seam-word {
+    display: inline-block;
+    font-family: var(--serif);
+    font-size: clamp(44px, 8vw, 64px);
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+    opacity: 0.7;
+  }
+  .output-list { list-style: none; margin: 28px 0; border-top: 1px solid var(--divider); }
+  .output-list li {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--divider);
+    font-size: 14px;
+  }
+  .out-num {
+    font-family: var(--serif);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    min-width: 26px;
+    padding-top: 3px;
+    opacity: 0.7;
+  }
+  .out-text { color: var(--text); line-height: 1.7; font-weight: 300; }
+  .out-text strong { font-weight: 600; }
+
+  /* ══════════ FOR WHO ══════════ */
+  #for-who { background: var(--bg-warm); }
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 40px;
+  }
+  @media (max-width: 560px) { .two-col { grid-template-columns: 1fr; } }
+  .col-yes { background: var(--bg-ivory); padding: 28px 24px; }
+  .col-no  { background: var(--bg);       padding: 28px 24px; }
+  .col-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 20px;
+  }
+  .col-yes .col-label { color: var(--accent); }
+  .col-no  .col-label { color: var(--text-light); }
+  .who-list { list-style: none; }
+  .who-list li {
+    font-size: 13px;
+    font-weight: 300;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--divider);
+    line-height: 1.65;
+    color: var(--text-sub);
+  }
+  .col-yes .who-list li { color: var(--text); }
+
+  /* ══════════ CONDITIONS ══════════ */
+  #conditions { background: var(--bg-ivory); }
+  .cond-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin: 40px 0;
+  }
+  @media (max-width: 560px) { .cond-grid { grid-template-columns: 1fr; } }
+  .cond-card {
+    background: var(--bg-warm);
+    padding: 28px 24px;
+  }
+  .cond-num {
+    font-family: var(--serif);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--accent);
+    opacity: 0.18;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .cond-card h3 { font-size: 15px; margin-bottom: 10px; font-family: var(--sans); font-weight: 600; }
+  .cond-card p  { font-size: 13px; color: var(--text-sub); margin-bottom: 0; }
+
+  .apply-steps {
+    margin: 36px 0;
+    border: 1px solid var(--divider);
+    overflow: hidden;
+  }
+  .apply-step {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 18px 24px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--divider);
+  }
+  .apply-step:last-child { border-bottom: none; }
+  .step-num {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--accent);
+    opacity: 0.3;
+    min-width: 32px;
+    line-height: 1;
+  }
+  .step-text { font-size: 14px; font-weight: 300; color: var(--text); line-height: 1.65; }
+  .step-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    background: var(--accent);
+    color: #fff;
+    padding: 2px 8px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  /* ══════════ BENEFITS ══════════ */
+  #benefits { background: var(--bg-warm); }
+  .price-reveal {
+    margin: 36px 0;
+    padding: 36px 28px;
+    background: var(--bg-ivory);
+    border: 1px solid var(--divider);
+    text-align: center;
+  }
+  .price-reveal .price-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--text-light);
+    display: block;
+    margin-bottom: 16px;
+  }
+  .price-reveal .price-num {
+    font-family: var(--serif);
+    font-size: clamp(36px, 6vw, 52px);
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .price-reveal .price-num span {
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--text-sub);
+    vertical-align: super;
+    margin-right: 2px;
+  }
+  .price-reveal .price-sub {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 12px;
+    font-weight: 300;
+  }
+  .price-reveal .price-monitor {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--divider);
+    font-size: 14px;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .benefit-list { list-style: none; margin: 32px 0; border-top: 1px solid var(--divider); }
+  .benefit-list li {
+    padding: 14px 0 14px 24px;
+    border-bottom: 1px solid var(--divider);
+    font-size: 15px;
+    font-weight: 300;
+    position: relative;
+    line-height: 1.7;
+  }
+  .benefit-list li::before { content: "→"; position: absolute; left: 0; color: var(--accent); }
+  .value-block {
+    margin-top: 36px;
+    padding: 32px 28px;
+    background: var(--bg-ivory);
+    border-left: 2px solid var(--accent);
+  }
+
+  /* ══════════ WARNING ══════════ */
+  #warning { background: var(--bg-ivory); }
+  .warning-block {
+    margin-top: 36px;
+    padding: 32px 28px;
+    background: var(--bg-warm);
+    border-top: 1.5px solid var(--text);
+  }
+  .w-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: var(--text);
+    display: block;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  .warning-list { list-style: none; }
+  .warning-list li {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text-sub);
+    padding: 9px 0 9px 20px;
+    border-bottom: 1px solid var(--divider);
+    position: relative;
+    line-height: 1.65;
+  }
+  .warning-list li::before { content: "—"; position: absolute; left: 0; color: var(--text); }
+
+  /* ══════════ FINAL CTA ══════════ */
+  #final-cta {
+    background: var(--bg-deep);
+    padding: 104px 0;
+  }
+  #final-cta h2 {
+    color: #fff;
+    font-size: clamp(24px, 4.5vw, 40px);
+    margin-bottom: 40px;
+  }
+  #final-cta p { color: rgba(255,255,255,0.6); font-weight: 300; }
+  #final-cta strong { color: #fff; font-weight: 600; }
+  .final-choice {
+    margin: 40px 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 32px 0;
+  }
+  .choice-row {
+    display: flex;
+    gap: 16px;
+    padding: 12px 0;
+    font-size: 14px;
+    font-weight: 300;
+  }
+  .c-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.25);
+    min-width: 64px;
+    padding-top: 3px;
+    flex-shrink: 0;
+  }
+  .c-text { color: rgba(255,255,255,0.5); line-height: 1.75; }
+  .choice-row.active .c-text { color: rgba(255,255,255,0.9); font-weight: 400; }
+  .choice-row.active .c-label { color: var(--gold); }
+  #final-cta .cta-btn {
+    background: #fff;
+    color: var(--bg-deep);
+    margin-top: 48px;
+  }
+  #final-cta .cta-btn:hover { background: var(--bg-warm); }
+  #final-cta .cta-note { color: rgba(255,255,255,0.3); margin-top: 14px; }
+
+  /* ══════════ FOOTER ══════════ */
+  footer {
+    background: var(--bg-deep);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 40px 0;
+    text-align: center;
+  }
+  footer p { font-size: 12px; color: rgba(255,255,255,0.2); margin-bottom: 0; font-weight: 300; letter-spacing: 0.06em; }
+
+  /* ══════════ STICKY ══════════ */
+  .sticky-bar {
+    display: none;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--accent);
+    padding: 14px 20px;
+    z-index: 100;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+  }
+  @media (max-width: 768px) { .sticky-bar { display: block; } }
+  .sticky-bar a {
+    display: block;
+    color: #fff;
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    line-height: 1.4;
+    letter-spacing: 0.04em;
+  }
+  .s-sub {
+    display: block;
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    margin-top: 2px;
+    letter-spacing: 0.06em;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════ HERO ══════════ -->
+<section id="hero">
+  <div class="col reveal">
+    <span class="badge">先行モニター募集 — 3名限定</span>
+    <h1>誰かが売ったのを<br>見るたびに、焦ってる。</h1>
+    <p class="hero-sub" style="margin-top: 28px;">
+      自分も発信してる。でも、売るものがない。<br>
+      その事実が、ずっと恥ずかしい。<br><br>
+      Product Seam の先行モニターを、<strong>3名限定</strong>で募集します。<br>
+      あなたの投稿・プロフィール・断片的なスキルを分析して、<strong>売るべき商品・ターゲット・LP文案・デザインプロンプトまで一気に出します。</strong><br><br>
+      ただし、誰でも入れる募集ではありません。<strong>すぐ使って、すぐ感想を出して、ちゃんと宣伝協力できる人だけ</strong>を選びます。
+    </p>
+
+    <ul class="hero-check">
+      <li>発信しているのに売るものがなく止まっている</li>
+      <li>商品案は浮かぶけど、LPで必ず止まる</li>
+      <li>今回こそ、売る側に回りたい</li>
+    </ul>
+
+    <div class="cta-wrap" style="margin-top: 0; text-align: left;">
+      <a href="#apply" class="cta-btn">先行モニターに応募する</a>
+      <p class="cta-note" style="text-align:left;">3名限定 / 条件あり / 無料</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ TRACK RECORD ══════════ -->
+<section id="track">
+  <div class="col reveal">
+    <span class="eyebrow">Track Record</span>
+    <div class="rule"></div>
+    <h2 style="color:#fff;">「企画」も「コミュニティ」も<br>全部プロダクトだった。</h2>
+    <p style="margin-top: 24px;">Product Seam を作ったのは、机上の話ではありません。フォロワー100人の段階から、企画ひとつでオープンチャットに80名を集め、コミュニティを立ち上げ、SNS開始から半年も経たずに売上を積み上げてきた、自分自身の実験の結果です。</p>
+
+    <div class="track-grid">
+      <div class="track-item">
+        <div class="track-num">200万+</div>
+        <div class="track-label">Threads開始から<br>半年未満で達成した売上</div>
+      </div>
+      <div class="track-item">
+        <div class="track-num">80名</div>
+        <div class="track-label">フォロワー100人の段階で<br>「わたしクリエイト」企画に集まった参加者数</div>
+      </div>
+      <div class="track-item">
+        <div class="track-num">2.5億</div>
+        <div class="track-label">支援したマーケティングスクールの<br>受講生累計売上</div>
+      </div>
+      <div class="track-item">
+        <div class="track-num" style="font-size: clamp(20px, 3.5vw, 28px); opacity: 0.85;">COCO</div>
+        <div class="track-label" style="margin-top: 8px;">SNSマーケティングを学ぶ<br>コミュニティ主宰</div>
+      </div>
+    </div>
+
+    <div class="track-profile">
+      <div class="track-profile-text">
+        <div class="track-profile-name">あひる</div>
+        <div class="track-profile-desc">
+          マーケター / SNSクリエイター。<br>
+          長年のマーケティング支援を経て、Threadsを軸にした個人向けのプロダクト設計・SNS集客を実践中。SNSコミュニティ主宰。
+        </div>
+      </div>
+    </div>
+
+    <p class="track-note">数字はすべて自社・支援先の実績です</p>
+  </div>
+</section>
+
+<!-- ══════════ WHAT IS THIS ══════════ -->
+<section id="what">
+  <div class="col reveal">
+    <span class="eyebrow">What is this</span>
+    <div class="rule"></div>
+    <h2>ただの無料プレゼントでは<br>ありません。</h2>
+
+    <p style="margin-top: 32px;">Product Seam の正式販売前に、本当に前に進みたい人に先に使ってもらい、リアルな変化を回収するための<strong>先行モニター募集</strong>です。</p>
+    <p>言い換えると、<em>「先に無料で使える代わりに、役割がある募集」</em>です。</p>
+
+    <div class="role-block">
+      <p><strong>その役割とは：</strong></p>
+      <ul class="role-items">
+        <li>受け取ったらすぐに使うこと</li>
+        <li>使った感想を24時間以内に出すこと</li>
+        <li>気に入ったら周囲にシェアすること</li>
+      </ul>
+    </div>
+
+    <p>ここまでが、先行モニターです。</p>
+  </div>
+</section>
+
+<!-- ══════════ ROOT CAUSE ══════════ -->
+<section id="why">
+  <div class="col reveal">
+    <span class="eyebrow">Root Cause</span>
+    <div class="rule"></div>
+    <h2>なぜあなたに、<br>売上がないのか。</h2>
+
+    <p style="margin-top: 32px;">「商品を作ろう」と思った夜が、何回あったか。</p>
+    <p>結局また情報を調べて、ノートに書いて、寝た。翌朝には、また誰かの投稿を見て焦ってた。</p>
+    <p>そのループの原因を、みんなこう思っている。</p>
+
+    <ul class="wrong-stack">
+      <li>発信量が足りないから</li>
+      <li>セールスが下手だから</li>
+      <li>AIを使いこなせていないから</li>
+      <li>自動化できていないから</li>
+    </ul>
+
+    <p>違う。もっと手前だ。</p>
+
+    <div class="truth-callout">
+      <p>売るものがない。<br>だから売上がない。</p>
+    </div>
+
+    <p>発信していても商品がない。商品案が浮かんでも、誰向けか曖昧。誰向けか少し見えても、LPで止まる。だから結局、売るところまで行かない。</p>
+    <p>売上がない原因は能力不足より前に、<strong>商品化の詰まり</strong>にあります。Product Seam は、そこを一気に抜くためのものです。</p>
+  </div>
+</section>
+
+<!-- ══════════ PRODUCT MEANING ══════════ -->
+<section id="meaning">
+  <div class="col reveal">
+    <span class="eyebrow">Product Seam</span>
+    <div class="rule"></div>
+
+    <span class="seam-word">Seam</span>
+    <p style="color: var(--text-sub); font-weight:300; margin-bottom: 36px;">縫い目、継ぎ目のこと。</p>
+
+    <p>バラバラに見えるあなたのスキル・経験・発信・過去の断片を、売れる商品へとつなぎ合わせる接合点。それが Product Seam です。</p>
+    <p>ただの強み診断ではありません。</p>
+
+    <ul class="output-list">
+      <li><span class="out-num">01</span><span class="out-text"><strong>売るべき商品案</strong> — あなたの断片から具体的なコンセプトを設計する</span></li>
+      <li><span class="out-num">02</span><span class="out-text"><strong>狙うべきターゲット</strong> — 誰の何の悩みに売るかを特定する</span></li>
+      <li><span class="out-num">03</span><span class="out-text"><strong>刺さる訴求軸</strong> — どう見せれば伝わるかを出す</span></li>
+      <li><span class="out-num">04</span><span class="out-text"><strong>LP文案</strong> — 販売の言葉が詰まらなくなる</span></li>
+      <li><span class="out-num">05</span><span class="out-text"><strong>AIデザイナーへのプロンプト</strong> — そのまま渡せる状態まで出力</span></li>
+    </ul>
+
+    <p style="margin-top: 12px;"><em>「何を売ればいいか」「誰に売ればいいか」「どう見せればいいか」</em>——この3つをまとめて片付けます。</p>
+  </div>
+</section>
+
+<!-- ══════════ FOR WHO ══════════ -->
+<section id="for-who">
+  <div class="col reveal">
+    <span class="eyebrow">For Who</span>
+    <div class="rule"></div>
+    <h2>こんな人に来てほしい。</h2>
+
+    <div class="two-col">
+      <div class="col-yes">
+        <span class="col-label">来てほしい</span>
+        <ul class="who-list">
+          <li>発信してるのに売るものがまだない</li>
+          <li>何を売ればいいか分からない</li>
+          <li>商品案は浮かぶけど、結局出せない</li>
+          <li>LPが作れなくて止まる</li>
+          <li>情報ばかり追っていて現実が変わっていない</li>
+          <li>今回のローンチにちゃんと協力できる</li>
+        </ul>
+      </div>
+      <div class="col-no">
+        <span class="col-label">向いていない</span>
+        <ul class="who-list">
+          <li>とりあえず無料なら欲しい人</li>
+          <li>すぐ使えない人</li>
+          <li>感想を出せない人</li>
+          <li>宣伝協力する気がない人</li>
+        </ul>
+      </div>
+    </div>
+
+    <p style="margin-top: 36px; font-size: 14px; color: var(--text-sub); font-weight: 300;">今回は「本気で前に進みたい人」と「ちゃんと役割を果たせる人」だけ来てください。</p>
+  </div>
+</section>
+
+<!-- ══════════ BENEFITS ══════════ -->
+<section id="benefits">
+  <div class="col reveal">
+    <span class="eyebrow">What You Receive</span>
+    <div class="rule"></div>
+    <h2>先行モニターで<br>受け取れるもの</h2>
+
+    <div class="price-reveal">
+      <span class="price-eyebrow">正式販売価格</span>
+      <div class="price-num"><span>¥</span>39,800</div>
+      <p class="price-sub">相当のサービスを、先行モニターは条件付きで無料で受け取れます</p>
+      <div class="price-monitor">今回のモニター参加費 → 無料</div>
+    </div>
+
+    <ul class="benefit-list">
+      <li>売るべき商品案</li>
+      <li>狙うべきターゲット</li>
+      <li>訴求の方向性</li>
+      <li>LP文案</li>
+      <li>AIデザイナーに渡せるデザインプロンプト</li>
+    </ul>
+
+    <div class="value-block">
+      <p>ただし、この価値の本質は「答えが出ること」だけではありません。</p>
+      <p>発信が売上に繋がらない理由が分かる。頭の中でバラバラだったあなたの断片が、商品としてつながる。</p>
+      <p><strong>「何を売ればいいか分からない」から「これをこう売ればいい」が見えるところまで、一気に進みます。</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CONDITIONS ══════════ -->
+<section id="conditions">
+  <div class="col reveal">
+    <span class="eyebrow">Conditions</span>
+    <div class="rule"></div>
+    <h2>先行モニターの条件</h2>
+
+    <div class="cond-grid">
+      <div class="cond-card">
+        <div class="cond-num">01</div>
+        <h3>すぐ使うこと</h3>
+        <p>当選後、後回しにしない。反応速度も含めて見ています。</p>
+      </div>
+      <div class="cond-card">
+        <div class="cond-num">02</div>
+        <h3>24時間以内に感想</h3>
+        <p>長文でなくていい。使う前に止まっていた場所・何が出たか・良かった点の3つは最低限ほしい。</p>
+      </div>
+      <div class="cond-card">
+        <div class="cond-num">03</div>
+        <h3>SNSで宣伝協力</h3>
+        <p>気に入ったら外に出せる人に来てほしい。今回は販売前の初速づくりも兼ねています。</p>
+      </div>
+      <div class="cond-card">
+        <div class="cond-num">04</div>
+        <h3>選考があること</h3>
+        <p>全員が通るわけではありません。反応が早く本気の人を優先します。</p>
+      </div>
+    </div>
+
+    <h3 id="apply" style="margin-bottom: 28px; font-family: var(--sans); font-weight: 600;">応募方法</h3>
+    <div class="apply-steps">
+      <div class="apply-step">
+        <span class="step-num">1</span>
+        <span class="step-text">対象ポストに<strong>いいね</strong>する <span class="step-tag">必須</span></span>
+      </div>
+      <div class="apply-step">
+        <span class="step-num">2</span>
+        <span class="step-text">対象ポストを<strong>リポスト</strong>する <span class="step-tag">必須</span></span>
+      </div>
+      <div class="apply-step">
+        <span class="step-num">3</span>
+        <span class="step-text">コメントで「<strong>応募</strong>」と入力する <span class="step-tag">必須</span></span>
+      </div>
+    </div>
+
+    <div class="cta-wrap">
+      <a href="#" class="cta-btn">先行モニターに応募する</a>
+      <p class="cta-note">3名限定 / 〆切：応募投稿の翌日23:59</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ WARNING ══════════ -->
+<section id="warning">
+  <div class="col reveal">
+    <span class="eyebrow">Notes</span>
+    <div class="rule"></div>
+    <h2>この募集について、<br>注意事項。</h2>
+
+    <div class="warning-block">
+      <span class="w-label">必ず確認してください</span>
+      <ul class="warning-list">
+        <li>無料プレゼント感覚の人は合いません</li>
+        <li>条件を守れない人は対象外です</li>
+        <li>今回は少人数で、反応が早い人を優先します</li>
+        <li>応募しても全員が通るわけではありません</li>
+        <li>当選後に条件を守れなかった場合、次回の参加はお断りします</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FINAL CTA ══════════ -->
+<section id="final-cta">
+  <div class="col reveal">
+    <h2>ここで決めてください。</h2>
+
+    <p>1年後も、同じ投稿してると思う？</p>
+    <p>いいねされて、喜んで、また投稿して。それで満足できるなら、この先は読まなくていい。</p>
+
+    <div class="final-choice">
+      <div class="choice-row">
+        <span class="c-label">このまま</span>
+        <span class="c-text">また情報だけ見て終わる。売上がない理由を、また別の何かでごまかす。</span>
+      </div>
+      <div class="choice-row active">
+        <span class="c-label">今回</span>
+        <span class="c-text">商品を持つところまで進む。先に売る側に回る。今回のモニターを、その最初の一歩にする。</span>
+      </div>
+    </div>
+
+    <p>今回のモニターになれば、少なくとも今の「何を売ればいいか分からない」状態は終わります。</p>
+    <p>無料で触ることが目的ではありません。<strong>売る側に回る最初の一歩を踏むことが目的です。</strong></p>
+
+    <div class="cta-wrap">
+      <a href="#" class="cta-btn">先行モニターに応募する</a>
+      <p class="cta-note">3名限定 / いいね・リポスト・コメントで応募</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <p>© 2026 Product Seam / あひる</p>
+</footer>
+
+<!-- Sticky CTA -->
+<div class="sticky-bar">
+  <a href="#apply">
+    先行モニターに応募する
+    <span class="s-sub">3名限定 — 条件あり / 無料</span>
+  </a>
+</div>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
